@@ -1,0 +1,120 @@
+{% extends 'basePerfil.html' %}
+{% load static %}
+
+{% block titulo %}Entrar | {% endblock %}
+
+{% block conteudo %}
+
+<style>
+    .input1 {
+        background-color: #f1f1f1;
+        border-color: #106572;
+    }
+
+    .input1:focus {
+        background-color: #f1f1f1;
+        border-color: #106572;
+    }
+
+    .input1:focus-within {
+        border: 1px solid #106572;
+        background-color: #f1f1f1;
+        border-color: #106572;
+    }
+
+    input:focus-within {
+        border: 1px solid #106572;
+        background-color: #f1f1f1;
+        border-color: #106572;
+    }
+
+    .form-control:focus-within {
+        border: 1px solid #106572;
+        background-color: #f1f1f1;
+        border-color: #106572;
+    }
+</style>
+
+<!-- subtitulo com nome da pagina e anterior -->
+<div class="row">
+    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 text-left">
+        <a href="{% url 'produto:home' %}" style="color: #262727;">
+            Pág. inicial</a>
+        <span style="color: #939393;">
+            <i class="fa-solid fa-2xs fa-angles-right"></i> Login
+        </span>
+    </div>
+</div>
+<!-- end subtitulo com nome da pagina e anterior -->
+
+<script src="{% static 'js/tilt.jquery.min.js'%}"></script>
+
+<div class="card shadow border ml-2 mr-2 mt-3">
+    <div class="card-body" style="padding: 5px;">
+        <div class="row">
+            <div class="col-lg-12 col-xl-6 my-auto">
+                <div class="contact1-pic js-tilt mx-auto" data-tilt>
+                    <img src="" alt="IMG">
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6 mx-auto">
+                <form class="contact1-form" method="POST" action="{% url 'perfil:login' %}">
+                    {% csrf_token %}
+                    <span class="contact1-form-title mt-5" style="color: #106572;">
+                        Login
+                    </span>
+
+                    <span class="contact1-form-title mt-2 text-muted mb-1" style="font-size: 18px;">
+                        Faça login para efetuar sua compra com as informações já cadastradas.
+                    </span>
+
+                    <div class="wrap-input1 validate-input mt-4">
+                        <label for="id_user" class="requiredField">Usuário</label>
+                        <input class="input1 " type="text" name='username' placeholder="Digite seu usuário" required
+                            id="id_user">
+                    </div>
+
+                    <div class="wrap-input1 validate-input mt-3 mb-1">
+                        <label for="id_senha" class="requiredField">Senha</label>
+                        <input class="input1 " type="password" name='password' placeholder="Digite sua senha" required
+                            id="id_senha">
+                    </div>
+
+                    <div class="container-contact1-form-btn mt-4">
+                        <button class="contact1-form-btn" type="submit">
+                            <span>
+                                Entrar
+                                <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                            </span>
+                        </button>
+                    </div>
+                    <span class="contact1-form-title mt-4" style="font-size: 17px;">
+                        não tem cadastro?
+                        <a href="{% url 'perfil:criar' %}" style="color: #525252;">
+                            <u>cadastre-se</u>
+                        </a>
+                    </span>
+                    <span class="contact1-form-title mt-3" style="font-size: 14px;">
+                        Ao continuar com o acesso, você concorda com a nossa
+                    </span>
+                    <span class="contact1-form-title mb-5" style="font-size: 14px;">
+                        <a href="{% url 'suporte:privacidade' %}" style="color: #525252;">
+                            <u>política de privacidade</u>
+                        </a>
+                    </span>
+                   
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+
+<!-- EFEITO IMAGEM -->
+<script>
+    $('.js-tilt').tilt({
+        scale: 1.1
+    })
+</script>
+
+{% endblock %}

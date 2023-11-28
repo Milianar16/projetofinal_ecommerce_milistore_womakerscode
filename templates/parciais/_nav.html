@@ -1,0 +1,289 @@
+{% load static %}
+{% load omfilters %}
+
+<div class="overlay"></div>
+
+<nav class="navbar navbar-expand-md bg-dark main-menu" style="box-shadow:none">
+    <div class="container">
+
+        <button type="button" id="sidebarCollapse" class="btn btn-link d-block d-md-none">
+            <i class="fas fa-bars me-1" style="color: #fff;"></i>
+        </button>
+
+        <a class=" navbar-brand" href="/">
+            <h4 class="font-weight-bold" style="color: white;">MiliSTORE</h4>
+        </a>
+
+        <!-- carrinho mobile -->
+        <ul class="navbar-nav ml-auto d-block d-md-none">
+            <li class="nav-item">
+                <a class="btn btn-link" data-toggle="modal" data-target="#exampleModalCenter">
+                    <i class="fas fa-shopping-cart" style="color: #fff;"></i>
+                    {% if request.session.carrinho %}
+                    <span class="badge badge-dark">{{ request.session.carrinho|qtd_total_carrinho }}</span>
+                    {% else %}
+                    <span class="badge badge-dark">0</span>
+                    {% endif %}
+                </a>
+            </li>
+        </ul>
+
+        <div class="collapse navbar-collapse">
+            <form class="form-inline my-2 my-lg-0 mx-auto" method="GET" action="{% url 'produto:busca' %}">
+                <input class="form-control" type="search" placeholder="Buscar por produtos..." aria-label="Search"
+                    name="termo" value="{{ request.GET.termo }}">
+                <button class="btn btn-dark my-2 my-sm-0" type="submit">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
+
+            <ul class="navbar-nav">
+
+                {% if request.user.is_authenticated %}
+                <li class="nav-item">
+                    <a href="#" target="_blank" title=""><i class="fa-regular fa-circle-user fa-2x mr-2 mt-2"
+                            style="color: #fff; font-size: 28px;"></i></a>
+                </li>
+
+                <li class="nav-item dropdown mr-2">
+                    <a class="nav-link dropdown-toggle mt-1" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="false" aria-expanded="false"
+                        style="color: #fff; font-size: 14px;">
+                        Olá <strong>{{request.user}}</strong>
+
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'pedido:conta' %}">Minha conta</a>
+                        <a class="dropdown-item" href="{% url 'perfil:logout' %}">Sair</a>
+                    </div>
+                </li>
+
+                {% else %}
+                <li class="nav-item">
+                    <a href="#" target="_blank" title=""><i class="fa-regular fa-circle-user fa-2x mr-2 mt-3"
+                            style="color: #fff; font-size: 28px;"></i></a>
+                </li>
+
+                <li class="nav-item dropdown mr-4">
+                    <a class="nav-link dropdown-toggle mt-1" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="false" aria-expanded="false"
+                        style="color: #fff; font-size: 14px;">
+
+                        <strong> Olá, faça seu login <br>ou cadastre-se</strong>&nbsp;&nbsp;&nbsp;
+
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'perfil:entrar' %}">Entrar</a>
+                        <a class="dropdown-item" href="{% url 'perfil:criar' %}">Cadastrar</a>
+                    </div>
+                    {% endif %}
+                </li>
+                </li>
+                <!-- carrinho tela grande -->
+                <li class="nav-item">
+                    <a class="btn btn-link " data-toggle="modal" data-target="#exampleModalCenter">
+                        {% if request.user.is_authenticated %}
+                        <i class="fas fa-shopping-cart  mr-1" style=" color: #fff; margin-top: 10px;"></i>
+                        {% else %}
+                        <i class="fas fa-shopping-cart  mr-1" style=" color: #fff; margin-top: 20px;"></i>
+                        {% endif %}
+                        {% if request.session.carrinho %}
+                        <span class=" badge badge-dark">
+                            {{ request.session.carrinho|qtd_total_carrinho }}
+                        </span>
+                        {% else %}
+                        <span class="badge badge-dark">0</span>
+                        {% endif %}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- modal exibindo carrinho -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">
+                    {% if request.user.is_authenticated %}
+                    Olá <strong>{{request.user}}</strong>
+                    {% else %}
+                    Seus itens
+                    {% endif %}
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="padding-left: 4px; padding-right: 4px;">
+                {% include 'produto/carrinhoModal.html' %}
+            </div>
+
+            <div class="modal-footer justify-content-center">
+                {% if carrinho %}
+                <a href="{% url 'produto:carrinho' %}" style="text-decoration: none; width:200px;">
+                    <button type="button" class="btn btn-info btn-lg btn-block">Ver carrinho</button>
+                </a>
+                {% else %}
+                <a href="{% url 'produto:lista' %}" style="text-decoration: none; width:200px;">
+                    <button type="button" class="btn btn-info btn-lg btn-block">Ver produtos</button>
+                </a>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="search-bar d-block d-md-none" style="margin-top: 10px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <form class="form-inline mb-3 mx-auto" method="GET" action="{% url 'produto:busca' %}">
+                    <input name="termo" value="{{ request.GET.termo }}" class="form-control" type="search"
+                        placeholder="Busca por produtos..." aria-label="Search">
+                    <button class="btn btn-dark" type="submit">
+                        <i class="fa-solid fa-magnifying-glass"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Sidebar Mobile -->
+<nav id="sidebar">
+    <div class="sidebar-header">
+        <div class="container">
+            {% if request.user.is_authenticated %}
+            <div class="row align-items-center">
+                <div class="col-2 text-left">
+                    <i class="fa-regular fa-circle-user fa-3x" style="color:#473C8B;"></i>
+                </div>
+                <div class="col-8">
+                    <p style="margin: 0; margin-left: 4px; color: #515151; font-size: 0.9rem;">
+                        <strong>Olá, {{ request.user }}</strong>
+                    </p>
+                    <p style="margin: 0; margin-left: 4px;">
+                        <a class="editarDados" href="{% url 'perfil:criar' %}">editar meus dados</a>
+                    </p>
+
+                </div>
+                <div class="col-2 text-right">
+                    <button type="button" id="sidebarCollapseX" class="btn btn-link">
+                        <i class="fa-solid fa-xmark fa-lg" style="color: #473C8B;"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12 text-center">
+                    <button class="btn btn-dark botaoSidebar tamanhoBotao border border-dark">
+                        <a href="{% url 'pedido:conta' %}" style="color: white;">Conta</a>
+                    </button>
+
+                    <button class="btn btn-light botaoSidebar2 tamanhoBotao border border-dark">
+                        <a href="{% url 'perfil:logout' %}" style="color: #000;">Sair</a>
+                    </button>
+                </div>
+            </div>
+            {% else %}
+            <div class="row align-items-center">
+                <div class="col-2 text-left">
+                    <i class="fa-regular fa-circle-user fa-3x" style="color:#473C8B;"></i>
+                </div>
+                <div class="col-8 text-center">
+                    <p style="margin: 0; color: #515151; font-size: 0.9rem;"><strong>Entre ou cadastre-se</strong></p>
+                </div>
+
+                <div class="col-2 text-right">
+                    <button type="button" id="sidebarCollapseX" class="btn btn-link">
+                        <i class="fa-solid fa-xmark fa-lg" style="color: #473C8B;"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12 text-center">
+                    <button class="btn btn-dark botaoSidebar tamanhoBotao border border-dark">
+                        <a href="{% url 'perfil:entrar' %}" style="color: white;">Entrar</a>
+                    </button>
+                    <button class="btn btn-dark botaoSidebar2 tamanhoBotao border border-dark">
+                        <a href=" {% url 'perfil:criar' %}" style="color: #000;">Cadastrar</a>
+                    </button>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <ul class="list-unstyled components links">
+        <li>
+            <a href="/"><i class="fa-solid fa-house mr-3 iconesColorSubmenu"></i>Home</a>
+        </li>
+        <li>
+            <a href="{% url 'produto:lista' %}"><i
+                    class="fa-solid fa-briefcase mr-3 iconesColorSubmenu"></i>Produtos</a>
+        </li>
+        <li>
+            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <i class="fa-solid fa-circle-question mr-3 iconesColorSubmenu"></i>Suporte
+            </a>
+            <ul class="collapse list-unstyled" id="pageSubmenu">
+                <li>
+                    <a href="{% url 'suporte:privacidade' %}">Política de Privacidade</a>
+                </li>
+                <li>
+                    <a href="{% url 'suporte:termos' %}">Termos de Uso</a>
+                </li>
+                <li>
+                    <a href="{% url 'suporte:perguntas' %}">Perguntas Frequentes</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="{% url 'suporte:contato' %}"><i class="fa-solid fa-envelope mr-3 iconesColorSubmenu"></i>Contato
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'suporte:sobre' %}"><i
+                    class="fa-regular fa-face-smile mr-3 iconesColorSubmenu"></i></i>Sobre
+            </a>
+        </li>
+    </ul>
+
+    <h5 class="text-uppercase mb-1"><strong>Categorias</strong></h5>
+    <ul class="list-unstyled components mb-3">
+        {% for categoria in categorias %}
+        <li>
+            <a href="{% url 'produto:categoria' categoria.nome_cat %}" name="buscar">
+                {{ categoria.nome_cat }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <ul class="social-iconsNav">
+        <li>
+            <a href="#" target="_blank" title="">
+                <i class="fa-brands fa-facebook fa-lg iconesColorSubmenu"></i>
+            </a>
+        </li>
+        <li>
+            <a href="#" target="_blank" title="">
+                <i class="fa-brands fa-twitter fa-lg iconesColorSubmenu"></i>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'suporte:contato' %}" title="">
+                <i class="fa-solid fa-envelope fa-lg iconesColorSubmenu"></i>
+            </a>
+        </li>
+        <li>
+            <a href="#" target="_blank" title="">
+                <i class="fa-brands fa-instagram fa-lg iconesColorSubmenu"></i>
+            </a>
+        </li>
+    </ul>
+
+</nav>

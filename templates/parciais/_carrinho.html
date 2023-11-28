@@ -1,0 +1,284 @@
+{% load static %}
+{% load omfilters %}
+
+<style>
+    .barra-horizontal-carrinho {
+        height: 8px;
+        background-color: #473C8B;
+        border-radius: 5px;
+        border: none;
+    }
+
+    .texto-titulo-carrinho-qtd {
+        margin-left: 20px;
+    }
+
+    .texto-titulo-preco-carrinho-total {
+        float: right;
+        margin-top: 0;
+    }
+
+    .posIconeExcluir {
+        background-color: #fff;
+        border: 1px solid #cfcfcf;
+        border-radius: 100%;
+        box-shadow: 4px 4px 4px -2px rgb(145 145 145 / 55%);
+        cursor: pointer;
+        height: 30px;
+        left: 2px;
+        padding: 7px;
+        position: absolute;
+        width: 30px;
+        z-index: 9;
+    }
+
+    .iconeExcluir {
+        color: #343a40;
+        margin: 0;
+        overflow: hidden;
+    }
+
+    .imagem-produto-carrinho {
+        width: 120px;
+        height: 140px;
+        margin-left: 5px;
+        margin-top: -10px;
+        display: block;
+    }
+
+    .imagem-produto-carrinhoSemFoto {
+        width: 120px;
+        height: 140px;
+        margin-top: -10px;
+        margin-left: 5px;
+        display: block;
+    }
+
+    .tamanho-produto-carrinho {
+        margin-top: 10px;
+    }
+
+    .preco-produto-carrinho {
+        margin-top: -9px;
+        margin-left: 1px;
+        font-size: 1.1rem;
+    }
+
+    .preco-produto-carrinho .preco-antigo-carrinho {
+        font-size: 0.95rem;
+        margin-right: 2px;
+    }
+
+    .preco-produto-carrinho .preco-atual-carrinho {
+        color: #473C8B;
+        font-weight: 700;
+    }
+
+    .info-quantidade {
+        margin-top: 10px;
+        text-align: left;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .info-quantidade input {
+        width: 50px;
+        height: 40px;
+        background-color: #ffffff;
+        text-align: center;
+        border: 1px solid #adadad;
+        border-radius: 8px;
+    }
+
+    .info-preco {
+        margin-top: 12px;
+    }
+
+    @media (max-width: 1000px) {
+        .texto-titulo-preco-carrinho-total {
+            float: none;
+            text-align: center;
+        }
+
+        .texto-titulo-carrinho-qtd {
+            margin-left: 18px;
+        }
+    }
+
+    @media (max-width: 800px) {
+        .nome-produto {
+            margin-top: 10px;
+            margin-left: 0px;
+            display: block;
+        }
+
+        .tamanho-produto-carrinho {
+            margin-top: 0px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .info-preco {
+            margin-top: 8px;
+        }
+
+        .sub {
+            padding-top: 2px;
+            padding-right: 3px;
+        }
+
+        .add {
+            padding-top: 2px;
+            padding-left: 3px;
+        }
+    }
+
+    @media (max-width: 500px) {
+
+        .posIconeExcluir {
+            left: 8px;
+        }
+
+        .texto-titulo-carrinho,
+        .texto-titulo-preco-carrinho-total {
+            font-size: 1rem;
+        }
+
+        .texto-titulo-carrinho-prod {
+            margin-left: 15px;
+        }
+
+        .texto-titulo-carrinho-qtd {
+            margin-left: 15px;
+            padding-left: 10px;
+        }
+
+        .imagem-produto-carrinho {
+            width: 110px;
+            height: 130px;
+        }
+
+        .pos-titulo-preco-carrinho-total {
+            padding-left: 0;
+        }
+
+        .info-quantidade input {
+            width: 40px;
+            font-size: .9rem;
+        }
+
+        .preco-produto-carrinho .preco-antigo-carrinho {
+            display: block;
+        }
+
+        .info-preco-total {
+            padding-right: 5px;
+        }
+    }
+
+    @media (max-width: 400px) {
+        .info-quantidade {
+            font-size: .75rem;
+        }
+
+        .info-quantidade input {
+            width: 35px;
+            font-size: .8rem;
+        }
+    }
+</style>
+
+<div class="row mt-4">
+    {% block titulo-modal %}
+    <div class="col-5">
+        <span class="texto-titulo-carrinho texto-titulo-carrinho-prod font-weight-bold">Produto</span>
+    </div>
+    <div class="col-5">
+
+        <span class="texto-titulo-carrinho texto-titulo-carrinho-qtd font-weight-bold">&nbsp;&nbsp;&nbsp;Qtd.</span>
+    </div>
+    <div class="col-2 pos-titulo-preco-carrinho-total">
+        <span class="texto-titulo-preco-carrinho-total font-weight-bold">Total<span class="mr-2"></span></span>
+    </div>
+    {% endblock %}
+</div>
+
+<div class="row">
+
+    {% for linha_carrinho in carrinho.values %}
+    <div class="col-12">
+        <hr />
+    </div>
+    {% block conteudo-modal %}
+    <div class="col-5 mt-3">
+        <div class="info-produto">
+
+            <a class="ml-1" href="{% url 'produto:removerdocarrinho' %}?vid={{ linha_carrinho.variacao_id }}"
+                style="margin-right:-20px;">
+                <i class=" fa-solid fa-trash-can posIconeExcluir iconeExcluir" aria-hidden="true"></i>
+            </a>
+            {% if linha_carrinho.imagem %}
+            <img class="img-fluid imagem-produto-carrinho" src="{{ linha_carrinho.imagem }}">
+            {% else %}
+            <img class="img-fluid imagem-produto-carrinho" src="https://i.postimg.cc/265tP6FY/produto-sem-foto.jpg">
+            {% endif %}
+
+            <span class="nome-produto"><a href="{% url 'produto:detalhe' linha_carrinho.slug %}"
+                    style="color: #262727; text-decoration: underline;">
+                    {{ linha_carrinho.produto_nome }}</a>
+            </span>
+
+            <p class="tamanho-produto-carrinho">Tamanho - {{ linha_carrinho.variacao_nome }}</p>
+            <p class="preco-produto-carrinho">
+                {% if linha_carrinho.preco_unitario_promocional %}
+                <span class="preco-antigo-carrinho">
+                    <strike>R$ {{ linha_carrinho.preco_unitario }}</strike></span>
+                <span class="preco-atual-carrinho"> R$
+                    {{linha_carrinho.preco_unitario_promocional}}</span>
+                {% else %}
+                <span class="preco-atual-carrinho">R$ {{ linha_carrinho.preco_unitario }}</span>
+                {% endif %}
+            </p>
+
+        </div> <!-- end info-produto -->
+    </div> <!-- end col-6 -->
+
+    <div class="col-5 mt-3">
+        {% endblock %}
+
+
+        <div class="info-quantidade">
+            <a href="{% url 'produto:removerdocarrinhomodal' %}?vid={{ linha_carrinho.variacao_id }}"
+                style="text-decoration: none;">
+                <button type="button" id="sub" class="sub"><i class="fas fa-minus"></i></button>
+            </a>
+            {% block qtd-modal %}
+            <input type="text" id="1" value="{{ linha_carrinho.quantidade }}" name="valor"
+                onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="2" size="2" readonly />
+            {% endblock %}
+            <a href="{% url 'produto:adicionaraocarrinhomodal' %}?vid={{ linha_carrinho.variacao_id }}">
+                <button type="button" id="add" class="add"><i class="fas fa-plus"></i></button>
+            </a>
+
+        </div> <!-- end info-quantidade -->
+    </div> <!-- end col-4 -->
+
+    {% block info-preco %}
+    <div class="col-2 mt-3">
+        <div class="info-preco">
+
+            <span class="info-preco-total" style="float: right;">
+                {% if linha_carrinho.preco_quantitativo_promocional %}
+                {{ linha_carrinho.preco_quantitativo_promocional|formata_preco }}
+                {% else %}
+                {{ linha_carrinho.preco_quantitativo|formata_preco }}
+                {% endif %}
+            </span>
+
+        </div> <!-- end info-preco -->
+    </div> <!-- end col-2 -->
+    {% endblock %}
+
+    {% endfor %}
+
+</div> <!-- end row -->

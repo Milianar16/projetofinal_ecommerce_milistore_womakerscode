@@ -1,0 +1,40 @@
+{% load static %}
+<!doctype html>
+<html lang="pt">
+
+<head>
+    {% include 'parciais/_head.html' %}
+    <title>{% block titulo %}{% endblock %}E-commerce</title>
+</head>
+
+<body style='background-color: #f1f1f1;'>
+    <style>
+        ::selection {
+        background-color:#473C8B;
+        color: #fff;
+        }
+
+        input {
+            caret-color: #473C8B;
+        }
+    </style>
+    {% block nav %}{% include 'parciais/_nav.html' %}{% endblock %}
+    {% block conteudoHome %}{% endblock %}
+    {% block conteudoPageDetalhe %}{% endblock %}
+    {% block carrinho %}{% endblock %}
+
+    <main class="container mt-4 mb-4">
+        {% include 'parciais/_messages.html' %}
+        {% block conteudo %}{% endblock %}
+    </main>
+
+    {% block carouselPequeno %}{% endblock %} <!-- necessário para carousel ficar fora da div container -->
+
+    {% block footer %}{% include 'parciais/_footer.html'%}{% endblock %}
+
+    <!-- Go to Top Link -->
+    {% include 'parciais/_gototop.html' %}
+
+</body>
+
+</html>

@@ -1,0 +1,294 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Resumo Pagamento | {% endblock %}
+
+{% load omfilters %}
+{% load static %}
+
+{% block conteudo %}
+
+<style>
+    .texto-email-confirmacao {
+        line-height: 20px;
+        box-sizing: border-box;
+        justify-content: center;
+        font-weight: 400;
+        font-size: 18px;
+        color: gray;
+    }
+
+    .texto-email-confirmacaoPOS {
+        padding: 0 45px;
+    }
+
+    .titulo-endereco,
+    .titulo-forma-de-pagamento,
+    .titulo-resumo {
+        font-family: inherit;
+        font-weight: bold;
+        text-rendering: optimizelegibility;
+        box-sizing: border-box;
+        letter-spacing: .25em;
+        line-height: 1;
+        color: #555;
+        margin-top: 20px;
+        text-transform: uppercase;
+        font-size: .975rem;
+    }
+
+    .titulo-endereco {
+        padding-left: 35px;
+    }
+
+    .titulo-forma-de-pagamento {
+        text-align: center;
+    }
+
+    .titulo-resumo {
+        text-align: right;
+        padding-right: 35px;
+    }
+
+    .conteudo-info-endereco {
+        margin-top: 30px;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        text-align: left;
+        line-height: 0.5;
+        color: rgba(0, 0, 0, .8);
+        font-size: .875rem;
+        box-sizing: border-box;
+    }
+
+    .conteudo-info-pagamento {
+        margin-top: 25px;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        line-height: 0.5;
+        color: rgba(0, 0, 0, .8);
+        font-size: .875rem;
+        box-sizing: border-box;
+        text-align: center;
+    }
+
+    .conteudo-info-resumo {
+        margin-top: 25px;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        color: rgba(0, 0, 0, .8);
+        font-size: .875rem;
+        box-sizing: border-box;
+        text-align: right;
+        line-height: 1.7;
+    }
+
+    .hrResumo {
+        width: 194px;
+        margin-top: 7px;
+        margin-bottom: 7px;
+    }
+
+    .btnBoleto {
+        text-align: center;
+    }
+
+    .btnBoleto button {
+        height: 44px;
+        border-radius: 10px;
+        width: 148px;
+    }
+
+    .btnFinal {
+        border-radius: 10px;
+    }
+
+    @media (max-width: 999px) {
+        .texto-email-confirmacaoPOS {
+            padding: 0 25px;
+        }
+
+        .titulo-endereco {
+            padding-left: 0;
+        }
+
+        .titulo-forma-de-pagamento,
+        .titulo-resumo,
+        .conteudo-info-pagamento,
+        .conteudo-info-resumo {
+            text-align: left;
+            padding-right: 0;
+        }
+
+        .titulo-resumo {
+            margin-top: 32px;
+        }
+
+        .conteudo-info-endereco,
+        .conteudo-info-resumo,
+        .conteudo-info-pagamento {
+            padding-left: 11px;
+        }
+
+        .hrResumo {
+            width: 100%;
+            margin-top: 7px;
+            margin-right: 20px;
+        }
+
+        .infoResumoMobile {
+            text-align: right;
+            padding-right: 25px;
+        }
+    }
+
+    @media (max-width: 700px) {
+        .texto-email-confirmacaoPOS {
+            padding: 0 15px;
+        }
+    }
+
+    @media (max-width: 500px) {
+        .texto-email-confirmacaoPOS {
+            padding: 0 5px;
+        }
+
+        .btnBoleto button {
+            font-size: 1rem;
+            width: 132px;
+            height: 60px;
+        }
+    }
+
+    @media (max-width: 380px) {
+        .btnBoleto button {
+            font-size: .9rem;
+            width: 120px;
+            height: 60px;
+        }
+    }
+</style>
+
+<div class="containerHome text-center mt-4 mb-2" id="loading" style="display: block">
+    {% include 'parciais/_carregamento.html' %}
+    <i class="fa-solid fa-barcode fa-2xl mt-4" style="color: #473C8B;" aria-hidden="true"></i>
+    <p class="lead mt-2">Gerando seu boleto...</p>
+</div>
+
+<div id="conteudo" style="display: none">
+
+    <div class="row mt-4">
+        <div class="col-12 text-center">
+            <h2>Pedido Confirmado</h2>
+        </div>
+        <div class="col-12 text-center mt-3">
+            <p class="lead texto-email-confirmacao texto-email-confirmacaoPOS">
+                Um e-mail de verificação com todos os detalhes do seu pedido será
+                enviado para você assim que a confirmação do seu pagamento for concluída.
+            </p>
+        </div>
+    </div> <!-- end row -->
+
+    <hr />
+
+    <div class="row mb-1">
+        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
+            <div class="titulo-endereco">
+                ENDEREÇO
+            </div>
+            <div class="conteudo-info-endereco">
+                <p>{{ usuario.first_name }} {{ usuario.last_name }}</p>
+                <p>{{ usuario.perfil.endereco }} {{ usuario.perfil.numero }} {{ usuario.perfil.complemento }}</p>
+                <p>{{ usuario.perfil.bairro }} {{ usuario.perfil.cidade }} {{ usuario.perfil.estado }}</p>
+                <p>{{ usuario.perfil.cep }}</p>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
+            <div class="titulo-forma-de-pagamento">
+                FORMA DE PAGAMENTO
+            </div>
+            <div class="conteudo-info-pagamento">
+                <img src="https://img.icons8.com/color/48/000000/boleto-bankario.png" class="mr-2" width="35"
+                    height="35" />
+                <span>Boleto Bancário</span>
+            </div>
+            <div class="btnBoleto mt-4">
+                <a href="{% url 'pedido:gerarboleto' pedido.id %}" target="_blank" rel="noopener noreferrer"
+                    title="clique para visualizar seu boleto em uma nova aba"
+                    style="color: #262727; text-decoration: none;"><button class="btn-secondary mr-3">Visualizar
+                        Boleto</button></a>
+
+                <button class="btn-secondary" title="clique para imprimir esta página" onclick="window.print()">Imprimir
+                    Página</button>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
+            <div class="titulo-resumo">
+                RESUMO
+            </div>
+            <div class="conteudo-info-resumo">
+                <div class="row">
+                    <div class="col-8">
+                        Subtotal:&nbsp;&nbsp;
+                    </div>
+                    <div class="col-4 infoResumoMobile">
+                        {{ pedido.total|formata_preco }}
+                    </div>
+                </div>
+
+                <hr align="right" class="hrResumo" />
+
+                <div class="row">
+                    <div class="col-8">
+                        Entrega:&nbsp;&nbsp;
+                    </div>
+                    <div class="col-4 infoResumoMobile">
+                        R$ 0,00
+                    </div>
+                </div>
+
+                <hr align="right" class="hrResumo" />
+
+                <div class="row">
+                    <div class="col-8">
+                        Total:&nbsp;&nbsp;
+                    </div>
+                    <div class="col-4 infoResumoMobile">
+                        {{ pedido.total|formata_preco }}
+                    </div>
+                </div>
+
+            </div> <!-- end conteudo-info-resumo -->
+        </div>
+
+    </div> <!-- end row -->
+
+</div> <!--  end div conteudo -->
+
+<div class="mt-5">
+    {% include 'parciais/_pedido.html' %}
+</div>
+
+<div class="row mt-4 mb-5">
+    <div class="col-6">
+        <a href="{% url 'produto:home' %}" style="color: #262727; text-decoration: none;">
+            <button class="btn btn-info btn-lg btn-block btnFinal">Realizar nova compra</button></a>
+    </div>
+    <div class="col-6">
+        <a href="{% url 'pedido:lista' %}" style="color: #262727; text-decoration: none;">
+            <button class="btn btn-info btn-lg btn-block btnFinal">Ir para meus pedidos</button></a>
+    </div>
+    <div class="col-6"></div>
+</div>
+
+<script>
+    // funcao pre loader
+    var i = setInterval(function () {
+
+        clearInterval(i);
+
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("conteudo").style.display = "inline";
+
+    }, 2500);
+</script>
+
+{% endblock %}
+
+{% block footer %} {% include 'parciais/_footerSimplesConta.html'%} {% endblock %}

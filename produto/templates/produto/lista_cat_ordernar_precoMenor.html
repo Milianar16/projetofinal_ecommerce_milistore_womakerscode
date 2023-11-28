@@ -1,0 +1,9 @@
+{% extends 'produto/lista_categoria.html' %}
+{% load static %}
+{% load omfilters %}
+
+{% block titulo %}{{ categoria }} com o menor preço | {% endblock %}
+
+{% block subtituloNomePagina %}Menor preço{% endblock %}
+
+{% block ordenarSelect %}Menor preço{% endblock %}

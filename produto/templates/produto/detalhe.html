@@ -1,0 +1,798 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load omfilters %}
+
+{% block titulo %}{{ produto.nome }} | {% endblock %}
+
+{% block conteudoPageDetalhe %}
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="{% static 'css/pageHome.css'%}">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.9/slick.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.9/slick-theme.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.9/slick.min.js"></script>
+
+<style>
+    /* conteúdo */
+    .fonteConteudo a,
+    p,
+    h2 {
+        font-family: 'Roboto', sans-serif;
+    }
+
+    .conteudoMobile {
+        margin-top: 0px;
+        margin-left: 0px;
+        margin-right: 70px;
+    }
+
+    /* subtitulo */
+    .subtituloMobile {
+        display: inline;
+        margin-bottom: 25px;
+    }
+
+    /* imagem produto */
+    .imagemMarginMobile {
+        margin-left: 70px;
+    }
+
+    .img-page-detalhe {
+        height: 548px;
+    }
+
+    /* imagens carousel */
+    .sec img {
+        display: block;
+        max-width: 100%;
+        margin: auto;
+        transition: ease-in-out .3s;
+        box-shadow: 0 0 0 rgb(0 0 0 / 10%);
+    }
+
+    .sec a:hover img {
+        opacity: .9;
+        transform: translateY(-4px);
+        box-shadow: 0 4px 4px rgb(0 0 0 / 10%);
+    }
+
+    /* texto conteudo */
+    .conteudoTipo {
+        color: whitesmoke;
+        background-color: black;
+        border-radius: 6px;
+        font-size: .775rem;
+        padding-left: 8px;
+        padding-right: 8px;
+        padding-top: 3px;
+        padding-bottom: 4px;
+        text-transform: uppercase;
+    }
+
+    .conteudoTipo:hover {
+        color: whitesmoke;
+    }
+
+    .conteudoNome {
+        font-size: 2.1rem;
+        font-weight: 750;
+        letter-spacing: 1.2px;
+        margin-top: 26px;
+    }
+
+    .iconeCopiarURL {
+        cursor: pointer;
+        color: #505050;
+    }
+
+    .conteudoCategoria {
+        color: #303030;
+        margin-left: 2px;
+    }
+
+    .conteudoCategoriaLink {
+        color: whitesmoke;
+        background-color: #473C8B;
+        border-radius: 6px;
+        font-size: .8rem;
+        padding-left: 4px;
+        padding-right: 4px;
+        padding-top: 2px;
+        padding-bottom: 3px;
+        text-transform: uppercase;
+        margin-left: 4px;
+    }
+
+    .conteudoCategoriaLink:hover {
+        color: black;
+    }
+
+    .textoPrecos {
+        margin-top: 30px;
+    }
+
+    .produto-preco-antigo {
+        color: #303030;
+        font-size: 17px;
+        font-weight: -100;
+        text-decoration: line-through;
+        line-height: 1;
+        font-style: normal;
+    }
+
+    .produto-preco {
+        color: #ed1b30;
+        font-weight: bold;
+        line-height: normal;
+        font-style: normal;
+        font-size: 30px;
+    }
+
+    .textoTamanho {
+        margin-top: 35px;
+        margin-bottom: 5px;
+    }
+
+    .textoQtd {
+        margin-top: 28px;
+        margin-bottom: 5px;
+    }
+
+    /* select tamanho*/
+    .form-control {
+        border-radius: 10px;
+        height: 45px;
+        border: 1px solid #adadad;
+    }
+
+    /* input quantidade */
+    .quantidade {
+        display: flex;
+        flex-direction: row;
+        border-radius: 8px;
+        height: 100%;
+        line-height: normal;
+        font-style: normal;
+        width: 100px;
+    }
+
+    .quantidade input {
+        width: 75px;
+        height: 40px;
+        background-color: #ffffff;
+        text-align: center;
+    }
+
+    .sub,
+    .add {
+        padding: 4px;
+        color: #303030;
+    }
+
+    /* botao carrinho */
+    .botaoCarrinhoMobile {
+        margin-top: 28px;
+        height: 70px;
+        border-radius: 12px;
+    }
+
+    .botaoCarrinhoMobile:disabled {
+        cursor: not-allowed;
+        opacity: .5;
+    }
+
+    .texto-carrinho {
+        font-weight: 500;
+        font-size: large;
+    }
+
+    .msgBotaoDesativado {
+        font-size: .75rem;
+        font-family: 'Roboto', sans-serif;
+        margin-left: 1px;
+        margin-top: 5px;
+    }
+
+    /* responsividade */
+    @media (max-width: 990px) {
+        .imagemMarginMobile {
+            margin-left: 0px;
+        }
+
+        .img-page-detalhe {
+            width: 50%;
+            height: 40%;
+            padding-right: 70px;
+            padding-left: 70px;
+            padding-top: 10px;
+            padding-bottom: 50px;
+        }
+
+        .conteudoMobile {
+            margin-left: 0px;
+            margin-top: 10px;
+            margin-right: 0px;
+        }
+
+        .conteudoTipo {
+            font-size: .745rem;
+        }
+
+        .conteudoNome {
+            font-size: 2.6rem;
+        }
+
+        .conteudoCategoria {
+            font-size: 1.05rem;
+        }
+
+        .conteudoCategoriaLink {
+            font-size: .95rem;
+        }
+
+        .produto-preco-antigo {
+            font-size: 19px;
+            letter-spacing: -0.4px;
+        }
+
+        .produto-preco {
+            font-size: 35px;
+            letter-spacing: -0.6px;
+        }
+
+        .botaoCarrinhoMobile {
+            margin-top: 30px;
+        }
+
+        .msgBotaoDesativado {
+            font-size: 1.4rem;
+            margin-top: 15px;
+        }
+    }
+
+    @media (max-width: 767px) {
+        .img-page-detalhe {
+            height: 490px;
+            padding: 5px;
+        }
+
+        .subtituloMobile {
+            display: none;
+        }
+
+        .conteudoTipo {
+            font-size: .645rem;
+        }
+
+        .conteudoNome {
+            font-size: 1.8rem;
+        }
+
+        .conteudoCategoria {
+            font-size: .9rem;
+        }
+
+        .conteudoCategoriaLink {
+            font-size: .8rem;
+        }
+
+        .produto-preco-antigo {
+            font-size: 17px;
+            letter-spacing: -0.3px;
+        }
+
+        .produto-preco {
+            font-size: 30px;
+            letter-spacing: -0.7px;
+        }
+
+        .msgBotaoDesativado {
+            font-size: 1.2rem;
+        }
+    }
+
+    @media (max-width: 500px) {
+        .img-page-detalhe {
+            height: 470px;
+            padding: 3px;
+        }
+
+        .conteudoTipo {
+            font-size: .645rem;
+        }
+
+        .conteudoNome {
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: 1.0px;
+            letter-spacing: -0.8px;
+        }
+
+        .iconeCopiarURL {
+            margin-left: 5px;
+        }
+
+        .conteudoCategoria {
+            font-size: .8rem;
+        }
+
+        .conteudoCategoriaLink {
+            font-size: .7rem;
+        }
+
+        .produto-preco-antigo {
+            font-size: 16px;
+            letter-spacing: -0.4px;
+        }
+
+        .produto-preco {
+            font-size: 28px;
+            letter-spacing: -0.7px;
+        }
+
+        .botaoCarrinhoMobile {
+            margin-top: 30px;
+        }
+
+        .msgBotaoDesativado {
+            line-height: 0.1;
+            font-size: .95rem;
+            margin-left: 2px;
+        }
+    }
+
+    @media (max-width: 380px) {
+        .msgBotaoDesativado {
+            font-size: .85rem;
+        }
+    }
+
+    /* zoom imagem */
+    * {
+        box-sizing: border-box;
+    }
+
+    .img-magnifier-container {
+        position: relative;
+    }
+
+    .img-magnifier-glass {
+        position: absolute;
+        border: 3px solid #000;
+        border-radius: 50%;
+        cursor: none;
+        /*Set the size of the magnifier glass:*/
+        width: 100px;
+        height: 100px;
+    }
+
+    @media (max-width: 990px) {
+        .img-magnifier-glass {
+            display: none;
+        }
+    }
+</style>
+
+<!-- subtítulos da pagina -->
+<main class="containerHome mt-4 mb-4">
+    <div class="row">
+        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 text-left subtituloMobile">
+            <a href="{% url 'produto:home' %}" style="color: #262727;">
+                Pág. Inicial</a>
+            <span style="color: #939393;">
+                <i class="fa-solid fa-2xs fa-angles-right"></i> <a href="{% url 'produto:lista' %}"
+                    style="color: #939393;">
+                    Produtos</a>
+            </span>
+            <span style="color: #939393;">
+                <i class="fa-solid fa-2xs fa-angles-right"></i> {{ produto.nome }}
+            </span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg">
+            <div class="row no-gutters">
+                <div class="col-lg-10 col-xl-9 shadow border imagemMarginMobile">
+
+                    <!--  necessario para verificar se existe imagem no bd e nao aparecer ícone erro ao renderizar -->
+                    {% if produto.imagem %}
+
+                    <!--  necessario para para caso houver apenas 1 imagem cadastrada, NÃO irá exibir carousel -->
+                    {% if produto.imagem2 %}
+
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="img-magnifier-container">
+                                    <img class="d-block w-100 img-page-detalhe" src="{{ produto.imagem }}"
+                                        alt="First slide" id="imagemDetalhe">
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="img-magnifier-container">
+                                    <img class="d-block w-100 img-page-detalhe" src="{{ produto.imagem2 }}"
+                                        alt="Second slide" id="imagemDetalhe2">
+                                </div>
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
+                            data-slide="prev">
+                            <i class="fa-solid fa-chevron-left fa-lg" style="color: black;"></i>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
+                            data-slide="next">
+                            <i class="fa-solid fa-chevron-right fa-lg" style="color: black;"></i>
+                        </a>
+                    </div>
+
+                    {% else %}
+                    <div class="text-center">
+                        <img class="d-block w-100 img-page-detalhe" src="{{ produto.imagem }}" id="imagemDetalhe">
+                    </div>
+
+                    {% endif %}
+                    <!-- end if exibicao carousel caso tenha mais de 1 foto -->
+
+                    {% else %}
+                    <div class="text-center">
+                        <img class="d-block w-100 img-page-detalhe"
+                            src="https://i.postimg.cc/265tP6FY/produto-sem-foto.jpg">
+                    </div>
+
+                    {% endif %}
+                    <!-- end if nao aparecer ícone erro ao renderizar -->
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg fonteConteudo">
+            <div class="conteudoMobile">
+
+                <!-- tipo (Lançamento ou Destaque) -->
+                <span>
+                    {% if produto.tipo == 'L' %}
+
+                    <a class="conteudoTipo" href="{% url 'produto:lista' %}" style="text-decoration: none;">
+                        Lançamento</a>
+                    {% endif %}
+                    {% if produto.tipo == 'V' %}
+                    <a class="conteudoTipo" href="{% url 'produto:lista' %}" style="text-decoration: none;">
+                        Mais Vendido</a>
+                    {% endif %}
+                    {% if produto.tipo == 'D' %}
+                    <a class="conteudoTipo" href="{% url 'produto:ord_destaque' %}" style="text-decoration: none;">
+                        Destaque</a>
+                    {% endif %}
+                    {% if produto.tipo == 'N' %}
+                    <div style="margin-top: 40px;"> <span style="display: none;"> A </span></div>
+                    {% endif %}
+                </span>
+
+                <!-- nome do produto + copiar link -->
+                <h1 class="conteudoNome">{{ produto.nome }}
+                    <i class="fas fa-share-alt fa-2xs iconeCopiarURL" href="{{ request.build_absolute_uri }}"
+                        onclick="copyURI(event)"></i>
+                </h1>
+
+                <!-- categoria do produto -->
+                <p style="font-size: .9rem;">
+                    <span class="conteudoCategoria">Categoria:</span>
+                    <a class="conteudoCategoriaLink" href="{% url 'produto:categoria' produto.categoria_produto %}"
+                        style="text-decoration: none;">
+                        {{ produto.categoria_produto }}
+                    </a>
+                </p>
+
+                <!-- preço do produto -->
+                {% if produto.preco_marketing_promocional %}
+                <div class="textoPrecos">
+
+                    <span id="variation-preco" class="produto-preco-antigo">
+                        {{ produto.preco_marketing|formata_preco }}
+                    </span>
+                    <p class="mt-0">
+                        <span id="variation-preco-promocional" class="produto-preco">
+                            {{ produto.preco_marketing_promocional|formata_preco }}
+                        </span>
+                    </p>
+                    <!-- <p style="line-height: 0.1; font-size: 12px;">
+                        <span>Pode dividir em até </span><span id="qtd"></span>x de
+                        <span id="valorAdicionado"></span> reais.
+                    </p> -->
+
+                    {% else %}
+                    <p class="mt-2">
+                        <span id="variation-preco" class="produto-preco">
+                            {{ produto.preco_marketing|formata_preco }}
+                        </span>
+                    </p>
+                    <!-- <p style="line-height: 0.1; font-size: 12px;">
+                        <span>Pode dividir em até </span><span id="qtd"></span>x de
+                        <span id="valorAdicionado"></span> reais.
+                    </p> -->
+                    {% endif %}
+
+                </div>
+
+                <!-- selecionando o tamanho do produto -->
+                <p class="textoTamanho" id="conteudo-variacao">Tamanho:</p>
+
+                <form action="{% url 'produto:adicionaraocarrinho' %}" id="form-add-to-cart">
+                    <div class="form-group">
+                        <select id="select-variacoes" name="select-variacoes" class="form-control form-control-lg"
+                            onchange="validacao()">
+
+                            <option disabled selected id="value">Selecione o tamanho</option>
+                            {% for variacao in produto.variacao_set.all %}
+                            {% if variacao.preco_promocional %}
+                            <option data-preco="{{ variacao.preco|formata_preco }}"
+                                data-preco-promocional="{{ variacao.preco_promocional|formata_preco }}"
+                                value="{{ variacao.id }}">
+                                {% if variacao.nome %}
+                                {{ variacao.nome }}
+                                {% else %}
+                                {{ variacao }}
+                                {% endif %}
+                            </option>
+                            {% else %}
+                            <option data-preco="{{ variacao.preco|formata_preco }}" value="{{ variacao.id }}">
+                                {% if variacao.nome %}
+                                {{ variacao.nome }}
+                                {% else %}
+                                {{ variacao }}
+                                {% endif %}
+                            </option>
+                            {% endif %}
+                            {% endfor %}
+
+                        </select>
+
+                        <!-- selecionando a quantidade do produto -->
+                        <p class="textoQtd">Quantidade:</p>
+                        <div class="quantidade mt-2">
+                            <button type="button" id="sub" class="sub mr-2"><i class="fas fa-minus"></i></button>
+                            <input type="text" id="1" value="1" name="valor"
+                                onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="2"
+                                size="2" />
+                            <button type="button" id="add" class="add ml-2"><i class="fas fa-plus"></i></button>
+                        </div>
+                        <!-- <input class="form-control form-controlQtd" type="text" placeholder="1" name="valor"
+                            onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="2" size="2" /> -->
+                    </div>
+
+                    <!-- botôes -->
+                    <div class="text-left">
+                        <div class="row">
+
+                            <!-- botão adicionar ao carrinho -->
+                            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                <button type="submit" class="btn btn-dark btn-lg btn-block botaoCarrinhoMobile"
+                                    title="adicionar produto ao carrinho">
+                                    <i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i>
+                                    <span class="texto-carrinho ml-2">Adicionar ao carrinho</span>
+                                </button>
+                                <p class="msgBotaoDesativado">
+                                    Informe um tamanho para adicionar ao carrinho.
+                                </p>
+                            </div>
+
+                            <!-- botão adicionar aos favoritos -->
+                            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                {% if request.user.is_authenticated %}
+                                <a href="{% url 'produto:adicionarfavorito' produto.slug %}"
+                                    style="text-decoration: none; color: #fff;">
+                                    <button type="button" class="btn btn-info btn-lg btn-block botaoCarrinhoMobile"
+                                        title="adicionar produto aos favoritos">
+                                        <i class="fa-solid fa-heart-circle-plus fa-lg" aria-hidden="true"></i>
+                                        <span class="texto-carrinho ml-2">Adicionar aos favoritos</span>
+                                    </button>
+                                </a>
+                                {% else %}
+                                <button type="button" class="btn btn-info btn-lg btn-block botaoCarrinhoMobile"
+                                    title="adicionar produto aos favoritos" disabled>
+                                    <i class="fa-solid fa-heart-circle-plus fa-lg" aria-hidden="true"></i>
+                                    <span class="texto-carrinho ml-2">Adicionar aos favoritos</span>
+                                </button>
+                                <p class="msgBotaoDesativado">
+                                    Faça o login para adicionar a sua lista de favoritos.
+                                </p>
+                                {% endif %}
+                            </div>
+
+                        </div> <!-- end row botoes -->
+                    </div>
+
+                </form>
+
+            </div> <!--  conteudoMobile -->
+        </div> <!--  fonteConteudo -->
+    </div><!-- row -->
+
+    <div class="row">
+        <div class="col-lg-12 fonteConteudo">
+            <div class="mt-5 mb-4">
+                <h2 class="text-left"><strong>Descrição</strong></h2>
+                <p class="lead mt-4" style="font-size: 16px; color: #505050; font-weight: 500;">
+                    {{ produto.descricao_curta}}
+                </p>
+                <h2 class="text-left mt-5"><strong>Informações</strong></h2>
+                <p class="mt-4">
+                    {{ produto.descricao_longa|linebreaks }}
+                </p>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<!-- Carousel Pequeno Veja mais -->
+{% include 'produto/detalheCarousel_vejamais.html' %}
+<!-- End Carousel Pequeno Lancamentos -->
+
+<script>
+    // funcao copiar link
+    function copyURI(evt) {
+        evt.preventDefault();
+        navigator.clipboard.writeText(evt.target.getAttribute('href')).then(() => {
+            alertify.set('notifier', 'position', 'bottom-right');
+            alertify.success('Link copiado com sucesso!');
+        }, () => {
+            alertify.set('notifier', 'position', 'bottom-right');
+            alertify.error('Ooops... parece que ocorreu um erro ao copiar o link.');
+        });
+    }
+
+    // validando a ativação BOTÃO somente após selecionar o tamanho com javaScript puro
+    function validacao() {
+        let tamanhoTexto = document.getElementById('conteudo-variacao')
+        let tamanhoEscolhido = document.getElementById('exibir-tamanho')
+        let select = document.getElementById('select-variacoes');
+        let option = select.options[select.selectedIndex];
+        let button = document.querySelector(".botaoCarrinhoMobile");
+        let msgBotaoDesativado = document.querySelector(".msgBotaoDesativado");
+
+        button.disabled = true;
+
+        let outro = document.getElementById('value').value = option.value;
+        let outroiNNERtEXT = document.getElementById('value').value = option.innerText;
+
+        outroiNNERtEXT = outroiNNERtEXT.replace(' ', '')
+        outroiNNERtEXT = outroiNNERtEXT.trim()
+        outroiNNERtEXT = outroiNNERtEXT.split('');
+
+        let ante = outroiNNERtEXT[outroiNNERtEXT.length - 3]
+        let penultimo = outroiNNERtEXT[outroiNNERtEXT.length - 2]
+        let ultimo = outroiNNERtEXT[outroiNNERtEXT.length - 1]
+
+        if (ante === undefined) {
+            ante = ''
+        }
+        if (penultimo === undefined) {
+            penultimo = ''
+        }
+
+        if (outro.length > 4) {
+            button.disabled = true;
+        }
+        else {
+            button.disabled = false;
+            tamanhoTexto.innerHTML = 'Tamanho escolhido: <label style="color: whitesmoke; background-color:#473C8B; border-radius: 6px; padding: 4px 8px; margin-left: 5px; font-size: 1.2rem;">' + ante + penultimo + ultimo + '</label>';
+            msgBotaoDesativado.setAttribute('style', 'display: none');
+        }
+    }
+    validacao();
+
+    // input quantidade funcao botao + e -
+    $('.add').click(function () {
+        if ($(this).prev().val() < 10) $(this).prev().val(+$(this).prev().val() + 1); // max 10
+        // $(this).prev().val(+$(this).prev().val() + 1);
+    });
+    $('.sub').click(function () {
+        if ($(this).next().val() > 1) $(this).next().val(+$(this).next().val() - 1); // min 1
+    });
+
+
+    //funcao que manipula o preço de acordo com a variação
+    (function () {
+        select_variacao = document.getElementById('select-variacoes');
+        variation_preco = document.getElementById('variation-preco');
+        variation_preco_promocional = document.getElementById('variation-preco-promocional');
+
+        if (!select_variacao) {
+            return;
+        }
+
+        if (!variation_preco) {
+            return;
+        }
+
+        select_variacao.addEventListener('change', function () {
+            preco = this.options[this.selectedIndex].getAttribute('data-preco');
+            preco_promocional = this.options[this.selectedIndex].getAttribute('data-preco-promocional');
+
+            variation_preco.innerHTML = preco;
+
+            if (variation_preco_promocional) {
+                variation_preco_promocional.innerHTML = preco_promocional;
+            }
+        })
+    })();
+
+
+    // função lupa zoom imagem
+    function magnify(imgID, zoom) {
+        var img, glass, w, h, bw;
+        img = document.getElementById(imgID);
+
+        /* Create magnifier glass: */
+        glass = document.createElement("DIV");
+        glass.setAttribute("class", "img-magnifier-glass");
+
+        /* Insert magnifier glass: */
+        img.parentElement.insertBefore(glass, img);
+
+        /* Set background properties for the magnifier glass: */
+        glass.style.backgroundImage = "url('" + img.src + "')";
+        glass.style.backgroundRepeat = "no-repeat";
+        glass.style.backgroundSize = (img.width * zoom) + "px " + (img.height * zoom) + "px";
+        bw = 3;
+        w = glass.offsetWidth / 2;
+        h = glass.offsetHeight / 2;
+
+        /* Execute a function when someone moves the magnifier glass over the image: */
+        glass.addEventListener("mousemove", moveMagnifier);
+        img.addEventListener("mousemove", moveMagnifier);
+
+        /*and also for touch screens:*/
+        glass.addEventListener("touchmove", moveMagnifier);
+        img.addEventListener("touchmove", moveMagnifier);
+        function moveMagnifier(e) {
+            var pos, x, y;
+            /* Prevent any other actions that may occur when moving over the image */
+            e.preventDefault();
+            /* Get the cursor's x and y positions: */
+            pos = getCursorPos(e);
+            x = pos.x;
+            y = pos.y;
+            /* Prevent the magnifier glass from being positioned outside the image: */
+            if (x > img.width - (w / zoom)) { x = img.width - (w / zoom); }
+            if (x < w / zoom) { x = w / zoom; }
+            if (y > img.height - (h / zoom)) { y = img.height - (h / zoom); }
+            if (y < h / zoom) { y = h / zoom; }
+            /* Set the position of the magnifier glass: */
+            glass.style.left = (x - w) + "px";
+            glass.style.top = (y - h) + "px";
+            /* Display what the magnifier glass "sees": */
+            glass.style.backgroundPosition = "-" + ((x * zoom) - w + bw) + "px -" + ((y * zoom) - h + bw) + "px";
+        }
+
+        function getCursorPos(e) {
+            var a, x = 0, y = 0;
+            e = e || window.event;
+            /* Get the x and y positions of the image: */
+            a = img.getBoundingClientRect();
+            /* Calculate the cursor's x and y coordinates, relative to the image: */
+            x = e.pageX - a.left;
+            y = e.pageY - a.top;
+            /* Consider any page scrolling: */
+            x = x - window.pageXOffset;
+            y = y - window.pageYOffset;
+            return { x: x, y: y };
+        }
+    }
+    /* Execute the magnify function: */
+    /* Specify the id of the image, and the strength of the magnifier glass: */
+    magnify("imagemDetalhe", 3);
+    magnify("imagemDetalhe2", 3);
+
+
+
+</script>
+
+{% endblock %}

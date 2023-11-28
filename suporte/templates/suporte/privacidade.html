@@ -1,0 +1,55 @@
+{% extends 'baseHome.html' %}
+
+{% block titulo %}Política de Privacidade | {% endblock %}
+
+{% block conteudo %}
+
+<style>
+    .conteudo h4 {
+        margin-top: 45px;
+        margin-bottom: 15px;
+    }
+
+    .conteudo p {
+        text-align: justify;
+        user-select: none;
+
+    }
+</style>
+
+<div class="mb-3">
+    <a href="{% url 'produto:home' %}" style="color: #262727;">
+        Página inicial</a><span style="color: #939393;">
+        <i class="fa-solid fa-2xs fa-angles-right"></i> Política de Privacidade
+    </span>
+</div>
+<div class="card shadow border ml-2 mr-2">
+    <div class="card-body" style="padding: 5px;">
+        <div class="row ">
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="conteudo">
+                    <h3 class="text-center" style="text-transform: uppercase;">Modelo de Política de privacidade e
+                        segurança</h3>
+
+                    <h4>Política de privacidade</h4>
+                    <p class="lead">Conforme as normas previstas na Lei 13.709/18, que versa sobre a proteção de dados e
+                        as demais legislações pertinentes, apresentamos a Política de Privacidade e Segurança
+                        do MiliStore.
+                    </p>
+                    <p class="lead">
+                        Este documento é vinculado e integra as Condições e Termos de Uso deste site, sendo
+                        passível de alteração a qualquer momento para adequação em regras estabelecidas pelas
+                        legislações que estabelecem o modo de tratamento dos dados.
+                    </p>
+                    <p class="lead">
+                        O acesso, visita e permanência neste site/blog é de livre escolha e acontece conforme a
+                        vontade/desejo do usuário, sendo sua visita e prosseguimento no site, escolha deste
+                        usuário.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'baseHome.html' %}
+{% load static %}
+{% load omfilters %}
+
+{% block titulo %}MiliSTORE| {% endblock %}
+
+{% block conteudoHome %}
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="{% static 'css/pageHome.css'%}">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.9/slick.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.9/slick-theme.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.9/slick.min.js"></script>
+
+<!-- Carousel Principal -->
+{% include 'produto/homeCarousel_principal.html' %}
+<!-- End Carousel Principal -->
+
+<div class="containerHome">
+    <!-- Banner-Info -->
+    {% include 'produto/homeBanner_info.html' %}
+    <!-- End Banner-Info -->
+
+    <!-- Cards Categoria -->
+    {% include 'produto/homeCards_categorias.html' %}
+    <!-- End Cards Categoria -->
+</div>
+
+<!-- Carousel Pequeno Lancamentos -->
+{% include 'produto/homeCarousel_lancamentos.html' %}
+<!-- End Carousel Pequeno Lancamentos -->
+
+<div class="containerHome">
+    <!-- Banner-Produtos -->
+    {% include 'produto/homeBanner_produtos.html' %}
+    <!-- End Banner-Produtos -->
+</div>
+
+<!-- Carousel Pequeno Destaques -->
+{% include 'produto/homeCarousel_destaques.html' %}
+<!-- End Carousel Pequeno Destaques -->
+
+<!-- Carousel Pequeno Mais Vendidos -->
+{% include 'produto/homeCarousel_maisvendidos.html' %}
+<!-- End Carousel Mais Vendidos -->
+
+
+
+{% endblock %}

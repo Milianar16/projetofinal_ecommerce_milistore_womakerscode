@@ -1,0 +1,9 @@
+{% extends 'produto/lista_categoria.html' %}
+{% load static %}
+{% load omfilters %}
+
+{% block titulo %}{{ categoria }} com o maior preço | {% endblock %}
+
+{% block subtituloNomePagina %}Maior preço{% endblock %}
+
+{% block ordenarSelect %}Maior preço{% endblock %}

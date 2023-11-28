@@ -1,0 +1,214 @@
+{% extends 'baseHome.html' %}
+
+{% block titulo %}Termos de Uso | {% endblock %}
+
+{% block conteudo %}
+
+<style>
+    .conteudo .lead {
+        font-size: 1.2rem;
+    }
+
+    .conteudo .lead-titulo {
+        margin-top: 45px;
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    .conteudo p {
+        text-align: justify;
+        user-select: none;
+    }
+</style>
+
+<div class="mb-3">
+    <a href="{% url 'produto:home' %}" style="color: #262727;">
+        Página inicial</a><span style="color: #939393;">
+        <i class="fa-solid fa-2xs fa-angles-right"></i> Termos de Uso
+    </span>
+</div>
+<div class="card shadow border ml-2 mr-2">
+    <div class="card-body" style="padding: 5px;">
+        <div class="row ">
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="conteudo">
+                    <h4 class="text-center mb-5">TERMOS DE USO</h4>
+                    <p class="lead">
+                        Seja Bem-vindo ao nosso website, onde todos os
+                        serviços são ofertados pela empresa MiliStore
+                        representado por meio dessa
+                        página na web.
+                    </p>
+                    <p class="lead">
+                        Avisamos previamente que ao acessar esse site você concorda
+                        com as disposições contidas nesse documento, por isso muita
+                        atenção ao ler cada uma das cláusulas e obrigações dispostas a
+                        seguir:
+                    </p><!--Simulação-->
+                    <p class="lead lead-titulo">
+                        <strong>1.Do Objeto</strong>
+                    </p>
+                    <p class="lead">
+                        Essa plataforma tem como finalidade de “e-commerce”, ou seja,
+                        disponibilizar a venda de produtos e serviços online disponibilizados na
+                        nossa plataforma.
+                    </p>
+                    <p class="lead lead-titulo">
+                        <strong>2. Da reserva de produtos</strong>
+                    </p>
+                    <p class="lead">
+                        2.1 O nosso website não trabalha com nenhuma possibilidade de
+                        reservar qualquer um dos produtos ofertados em nossa plataforma.
+                    </p>
+                    <p class="lead">
+                        2.2 O fato de o produto estar no carrinho de compras não é tido como
+                        uma reserva e não impossibilita que outras pessoas possam adquirir o
+                        produto e eles venham a se esgotar.
+                    </p>
+                    <p class="lead lead-titulo">
+                        <strong>3. Das obrigações do cliente</strong>
+                    </p>
+                    <p class="lead">
+                        3.1 O cliente deverá informar os dados de forma completa e correta no
+                        momento de cadastro em nossa plataforma.
+                    </p>
+                    <p class="lead">
+                        3.2 É responsabilidade do cliente qualquer erro na escrita ou na
+                        transmissão errônea dos dados.
+                    </p>
+                    <p class="lead">
+                        3.3 Para efetuar qualquer compra em nosso website ou adicionar
+                        produtos ao carrinho é necessário logar com o usuário e senha que foi
+                        fornecido no momento do cadastro.
+                    </p>
+                    <p class="lead">
+                        3.4 Não informar os seus dados de login a terceiros sob pena de ser
+                        responsabilizado por qualquer conduta advinda desse uso.
+                    </p>
+                    <p class="lead">
+                        3.5 Cada cliente só poderá efetuar um cadastro, não sendo aceito mais
+                        de uma conta por CPF.
+                    </p>
+                    <p class="lead">
+                        3.6 Usar a plataforma respeitando a ética, bons costumes, legislações e
+                        ordenamentos vigentes no país, sob pena de sofrer sanções.
+                    </p>
+                    <p class="lead">
+                        3.7 Ser maior de idade (18 anos) e ter capacidade plena para realizar o
+                        cadastro e efetuar compras em nossa plataforma.
+                    </p>
+                    <p class="lead">
+                        3.7.1 Se um menor de idade ou pessoa física sem capacidade plena vir a
+                        adquirir algum produto ou serviço ofertado em nossa plataforma,
+                        entenderemos que os responsáveis autorizaram, respondendo esses por
+                        toda e qualquer situação que advir, bem como pela compra.
+                    </p>
+                    <p class="lead">
+                        3.8 Não comentar ou enviar imagens nas avaliações que possam ir de
+                        encontro com a ética e o respeito, ou que tenha cunho difamatório,
+                        ofensivo ou preconceituoso.
+                    </p>
+                    <p class="lead">
+                        3.9 Não fornecer qualquer informação falsa, fraudulenta ou que não
+                        seja correspondente aos seus dados.
+                    </p>
+                    <p class="lead lead-titulo">
+                        <strong>4. Das obrigações do proprietário do e-commerce</strong>
+                    </p>
+                    <p class="lead">
+                        4.1 Informar de forma ostensiva e verdadeira sobre as características e
+                        especificações do produto disponível para venda de forma clara e
+                        completa
+                    </p>
+                    <p class="lead">
+                        4.2 Enviar os produtos dentro do prazo estabelecido.
+                    </p>
+                    <p class="lead">
+                        4.3 Disponibilizar uma plataforma segura.
+                    </p>
+                    <p class="lead lead-titulo">
+                        <strong>5. Isenção de responsabilidade</strong>
+                    </p>
+                    <p class="lead">
+                        5.1 Não nos responsabilizamos pelo mau uso ou manuseio errado do
+                        produto, bem como de qualquer dano que possa ocorrer na instalação
+                        de qualquer produto adquirido em nossa plataforma.
+                    </p>
+                    <p class="lead">
+                        5.2 Todos os produtos que vendemos estão dentro dos padrões e
+                        condições que vem de fábrica, do distribuidor ou da empresa que
+                        revendeu o produto.
+                    </p>
+                    <p class="lead">
+                        5.3 Fornecemos todas as informações pertinentes relacionadas ao
+                        produto, bem como os mesmos vão acompanhados de instruções de
+                        uso e cuidados em suas caixas ou através de manual de instruções.
+                    </p>
+
+                    <p class="lead lead-titulo">
+                        <strong>6. Formas de pagamento</strong>
+                    </p>
+                    <p class="lead">
+                        6.1 A forma de pagamento aceitas em nosso e-commerce será somente
+                        boleto bancário.
+                    </p>
+                    <p class="lead">
+                        6.2 O boleto bancário poderá ser emitido no momento em que você
+                        escolheu a opção, preencheu os dados requisitados e gerou.
+                    </p>
+                    <p class="lead">
+                        6.2.1 O boleto não será aceito após a data de vencimento.
+                    </p>
+                    <p class="lead">
+                        6.2.2 Se o boleto vencer e o pagamento não tiver sido efetuado, o
+                        produto voltará a ficar disponível para venda e será necessário realizar
+                        uma nova compra para adquiri-lo.
+                    </p>
+                    <p class="lead">
+                        6.3 O produto será enviado assim que o pagamento for processado,
+                        registrado e confirmado em nossa plataforma.
+                    </p>
+                    <p class="lead">
+                        6.4 Qualquer outra forma de pagamento não é aceita por nosso ecommerce.
+                    </p>
+                    <p class="lead lead-titulo">
+                        <strong>7. Entrega e envio do produto</strong>
+                    </p>
+                    <p class="lead">
+                        7.1 O produto será enviado assim que o pagamento for confirmado,
+                        podendo ser enviado até 3 dias após a confirmação do pagamento.
+                    </p>
+                    <p class="lead lead-titulo">
+                        <strong>8. Troca e devolução</strong>
+                    </p>
+                    <p class="lead">
+                        8.1 O cliente poderá devolver o produto ou trocar por outro produto adquirido
+                        em nosso e-commerce em até 7 dias, seja qual for a razão, conforme a
+                        previsão expressa no Código de Defesa do Consumidor em seu art. 49.
+                    </p>
+                    <p class="lead">
+                        8.1.1 Para que ocorra a troca ou a devolução é necessário que o produto
+                        esteja conforme foi entregue, com todos os acessórios, manual e
+                        embalagem, caixa.
+                    </p>
+                    <p class="lead">
+                        8.1.2 O produto que será devolvido ou trocado não poderá apresentar
+                        qualquer marca de uso, como o produto estar trincado, riscado ou
+                        apresentar sinais de quedas.
+                    </p>
+                    <p class="lead">
+                        8.2 Se você requisitou a troca do produto o novo será enviado para o
+                        endereço e você será notificado sobre o envio via e-mail.
+                    </p>
+                    <p class="lead">
+                        8.3 Se você solicitou o reembolso, a devolução do valor ocorrerá da
+                        forma como foi efetuado o pagamento.
+                    </p>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

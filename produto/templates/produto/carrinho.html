@@ -1,0 +1,184 @@
+{% extends 'base.html' %}
+{% load omfilters %}
+{% load static %}
+
+{% block titulo %}Carrinho | {% endblock %}
+
+{% block carrinho %}
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="{% static 'css/pageHome.css'%}">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.9/slick.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.9/slick-theme.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.9/slick.min.js"></script>
+
+<style>
+    .tituloh3 {
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+
+    .btn-continuar-comprando {
+        font-size: .9rem;
+        width: 184px;
+        height: 40px;
+        border-radius: 10px;
+        float: right;
+        margin-top: 20px;
+        margin-right: 20px;
+    }
+
+    .lead {
+        margin-top: 10px;
+        margin-left: 20px;
+    }
+
+    .conteudo-total-do-pedido {
+        margin-top: 10px;
+    }
+
+    .margin-conteudo-total-do-pedido {
+        margin-right: 80px;
+    }
+
+    @media (max-width: 999px) {
+        .tituloh3 {
+            margin-left: 10px;
+        }
+
+        .btn-continuar-comprando {
+            float: left;
+            margin-top: 10px;
+            margin-left: 11px;
+        }
+
+        .lead {
+            margin-left: 10px;
+        }
+
+        .conteudo-total-do-pedido {
+            text-align: center;
+        }
+
+        .margin-conteudo-total-do-pedido {
+            margin-right: 10px;
+        }
+    }
+
+    @media (max-width: 500px) {
+        .conteudo-total-do-pedido {
+            margin-top: 5px;
+        }
+    }
+</style>
+
+{% if carrinho %}
+
+<div class="containerHome text-center mt-4 mb-2" id="loading" style="display: block">
+    {% include 'parciais/_carregamento.html' %}
+    <i class="fas fa-shopping-cart fa-2xl mt-4" style="color: #473C8B;" aria-hidden="true"></i>
+    <p class="lead">Carregando seu carrinho</p>
+</div>
+
+<div id="conteudo" style="display: none">
+
+    <div class="containerHome">
+        <div class="row">
+
+            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                <h3 class="tituloh3">Carrinho de compras</h3>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                <a href="{% url 'produto:lista' %}">
+                    <button class="btn btn-dark btn-sm btn-continuar-comprando">
+                        Continuar comprando</button></a>
+            </div>
+            <div class="col-12">
+                <p class="lead">Os produtos, quantidades e preços que você escolheu.</p>
+            </div>
+
+        </div> <!--  end row -->
+        <hr />
+    </div> <!--  end containerHome -->
+
+    <div class="container">
+        {% include 'parciais/_carrinho.html' %}
+    </div>
+
+    <div class="containerHome">
+        <hr />
+        <div class="row mt-3">
+            <div class="col-12 mb-4">
+                <div class="text-left">
+                    <p class='lead conteudo-total-do-pedido' style="font-size: 1.5rem;">
+                        Total do pedido
+                        <hr />
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                <p class="conteudo-total-do-pedido">
+                    <span class="font-weight-bold margin-conteudo-total-do-pedido lead">Total:</span>
+                    <span class="lead">{{ carrinho|total_carrinho|formata_preco }}</span>
+                </p>
+            </div>
+
+            <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 mt-2">
+                {% if request.user.is_authenticated %}
+                <a class="btn btn-info btn-lg btn-block" href="{% url 'produto:resumodacompra' %}">
+                    Comprar
+                </a>
+                {% else %}
+                <a class="btn btn-info btn-lg btn-block" href="{% url 'perfil:entrar' %}">
+                    Entrar ou cadastrar e comprar
+                </a>
+                {% endif %}
+            </div>
+
+
+        </div> <!-- end row-->
+    </div> <!--  end containerHome -->
+
+</div> <!--  end conteudo -->
+
+{% else %}
+
+<div class="containerHome">
+    <div class="row mt-5">
+        <div class="col">
+            <h2>Carrinho vazio</h2>
+            <p class="lead">Não há produtos no seu carrinho.</p>
+        </div>
+    </div>
+</div>
+
+{% endif %}
+
+<script>
+    // funcao pre loader
+    var i = setInterval(function () {
+
+        clearInterval(i);
+
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("conteudo").style.display = "inline";
+
+    }, 2500);
+
+    // input quantidade funcao botao + e -
+    $('.add').click(function () {
+        if ($(this).prev().val() < 10) $(this).prev().val(+$(this).prev().val() + 1); // max 10
+        // $(this).prev().val(+$(this).prev().val() + 1);
+    });
+    $('.sub').click(function () {
+        if ($(this).next().val() > 1) $(this).next().val(+$(this).next().val() - 1); // min 1
+    });
+</script>
+
+<!-- Carousel Pequeno Mais Vendidos -->
+{% include 'produto/homeCarousel_maisvendidos.html' %}
+<!-- End Carousel Mais Vendidos -->
+
+{% endblock %}

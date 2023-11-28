@@ -1,0 +1,71 @@
+{% extends 'baseHome.html' %}
+{% load static %}
+
+{% block titulo %}Sobre | {% endblock %}
+
+{% block conteudo %}
+
+<script src="{% static 'js/tilt.jquery.min.js'%}"></script>
+
+<style>
+    .conteudo p {
+        text-align: justify;
+        user-select: none;
+    }
+</style>
+
+<div class="mb-3">
+    <a href="{% url 'produto:home' %}" style="color: #262727;">
+        Página inicial</a><span style="color: #939393;">
+        <i class="fa-solid fa-2xs fa-angles-right"></i> Sobre
+    </span>
+</div>
+<div class="card shadow border ml-4 mr-4">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-3 mx-auto d-flex flex-column justify-content-center align-items-center"
+            style="background-color: #473C8B;">
+            <img src="https://images.vexels.com/media/users/3/141184/isolated/lists/339d83441d7f117e5adf875f25b8d0bc-sacola-de-compras-em-branco.png" alt="IMG" class="img-fluid imagemLogo mt-5"
+                data-tilt>
+            <div class="text-center logo-conteudo mb-5">
+                <h3 class="text-center mt-4 mb-3 ">
+                    <strong>MiliSTORE</strong>
+                </h3>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-12 col-lg-8 col-xl-9 mx-auto">
+            <div class="conteudo">
+
+                <h3 class="text-center mb-3" style="text-transform: uppercase;">QUEM SOMOS (Simulação)</h3>
+                <p class="lead">
+                    A MiliSTORE foi desenvolvido para fins de conclusão do Bootcamp backend Python e Django
+                </p>
+
+                <h5 class="mt-4 mb-3">NOSSA MISSÃO</h5>
+                <p class="lead">
+                    Satisfazer aos anseios de nossos clientes com muito respeito e transparência nas
+                    escolhas e decisões.
+                </p>
+
+                <h5 class="mt-4 mb-3">NOSSA VISÃO</h5>
+                <p class="lead">
+                    Ocupar um lugar de destaque no mercado e-commerce e ser reconhecido por
+                    comercializar produtos de alto padrão.
+                </p>
+
+                <h5 class="mt-4 mb-3">NOSSOS VALORES</h5>
+                <p class="lead">
+                    Ética, comprometimento, respeito a vida e ao meio ambiente.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- EFEITO IMAGEM -->
+    <script>
+        $('.js-tilt').tilt({
+            scale: 1.1
+        })
+    </script>
+
+    {% endblock %}
