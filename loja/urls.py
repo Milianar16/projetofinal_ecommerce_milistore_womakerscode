@@ -21,6 +21,7 @@ from django.urls import include, path
 from perfil.views import BasePerfil
 
 
+
 urlpatterns = [
     path('', include('produto.urls')),
 
