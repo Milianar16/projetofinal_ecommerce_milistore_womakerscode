@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-tg$15n*+iva8)=s3tap46a@0@%frsd4&2+5j_!3+hdrm$9@%*n
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://milistorecomerce-ff429fdf7a24.herokuapp.com/ ']
+ALLOWED_HOSTS = ['https://milistore-0ae78ec46b06.herokuapp.com/ ']
 
 
 # Application definition
