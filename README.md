@@ -1,6 +1,6 @@
 #Projeto Ecommerce em Python e Django com finalidade para conclusão do Bootcamp Backend Python e Django
 
-git clone https://github.com/Milianar16/projeto_final_Ecommerce_Womakers.git
+git clone https://github.com/Milianar16/projetofinal_ecommerce_milistore_womakerscode.git
  criar um ambiente virtual : pip install  virtualenv
  entrar na pasta do ambiente para ativar : cd nome_do_ambiente_virtual
  Para ativar:
