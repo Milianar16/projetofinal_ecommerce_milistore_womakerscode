@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\milir\OneDrive\Área de Trabalho\projeto_final_Ecommerce_Womakers_app\base"
+VIRTUAL_ENV="C:\Users\milir\OneDrive\Área de Trabalho\teste_deploy_ecommerce\base"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
